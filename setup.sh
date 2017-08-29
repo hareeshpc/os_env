@@ -33,6 +33,7 @@ echo "Path set to:${PATH}"
 
 
 # Adding aliases
+echo "Adding OS aliases...."
 if [ ! -f ~/.bashrc ]; then
   touch ~/.bashrc
 else
@@ -58,4 +59,4 @@ echo "alias fcreate='neutron floatingip-create'" >> ~/.bashrc
 echo "alias fass='neutron floatingip-associate'" >> ~/.bashrc
 echo "alias fdel='neutron floatingip-delete'" >> ~/.bashrc
 
-source ~/.bashrc
+echo "Relogin for aliases to take effect or simply source ~/.bashrc"
