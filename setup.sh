@@ -11,9 +11,9 @@ if [ ! -d /var/hareesh/mercury_scripts ]; then
   cd /var/hareesh
   git clone https://github.com/hareeshpc/mercury_scripts.git
 else
-  echo "Directory /var/hareesh/mercury_scripts exists. Updating..."
-  cd /var/hareesh/mercury_scripts
-  git pull origin master
+  echo "Directory /var/hareesh/mercury_scripts exists. Doing nothing..."
+  #cd /var/hareesh/mercury_scripts
+  #git pull origin master
 fi
 
 # Go back to home Directory
