@@ -16,47 +16,49 @@ else
   #git pull origin master
 fi
 
-# Go back to home Directory
-cd ~
 
-# Source global definitions
 if [ -f ~/.bash_profile ]; then
   cp ~/.bash_profile{,.backup}
-  echo "" >>~/.bash_profile
-  echo "#`date`: Adding Testing enhancements" >> ~/.bash_profile
+
+  # Add new functions path
+  echo "" >> ~/.bash_profile # New line
+  echo "# `date`: Adding Testing enhancements" >> ~/.bash_profile
   echo "PATH=$PATH:/var/hareesh/mercury_scripts" >> ~/.bash_profile
   echo "export PATH" >> ~/.bash_profile
+
+  # Source openrc
+  cat <<EOF >>~/.bash_profile
+
+  if [ -f /root/openstack-configs/openrc ]; then
+    . /root/openstack-configs/openrc
+  fi
+EOF
 fi
-echo "Exporting path variable to current shell"
+
+echo "Exporting path variable to current shell also"
 export PATH=$PATH:/var/hareesh/mercury_scripts
 echo "Path set to:${PATH}"
 
 
 # Adding aliases
 echo "Adding OS aliases...."
-if [ ! -f ~/.bashrc ]; then
-  touch ~/.bashrc
+if [ -f ~/.bash_aliases ]; then
+  echo " Found exisiting .bash_aliases. Appending...."
+  cat .bash_aliases >> ~/.bash_aliases
 else
-  cp ~/.bashrc{,.backup}
+  echo "Creating .bash_aliases"
+  cp .bash_aliases ~
 fi
 
+if [ -f ~/.bash_profile ]; then
+    # Add bash aliases
+    echo " ">> ~/.bash_profile
+    echo "# `date`: Adding Neutron/OS aliases" >> ~/.bash_profile
+    cat <<EOF >>~/.bash_profile
+if [ -f ~/.bash_aliases ]; then
+  . ~/.bash_aliases
+fi
+EOF
+fi
 
-echo " ">> ~/.bashrc
-echo "# `date`: Adding Neutron/OS aliases" >> ~/.bashrc
-echo "alias n='neutron'" >> ~/.bashrc
-echo "alias nlist='neutron net-list'" >> ~/.bashrc
-echo "alias rlist='neutron router-list'" >> ~/.bashrc
-echo "alias slist='neutron subnet-list'" >> ~/.bashrc
-echo "alias plist='neutron port-list'" >> ~/.bashrc
-echo "alias rplist='neutron router-port-list'" >> ~/.bashrc
-echo "alias riadd='neutron router-interface-add'" >> ~/.bashrc
-echo "alias ridel='neutron router-interface-delete'" >> ~/.bashrc
-echo "alias rgset='neutron router-gateway-set'" >> ~/.bashrc
-echo "alias rgclear='neutron router-gateway-clear'" >> ~/.bashrc
-echo "alias l3r='neutron l3-agent-list-hosting-router'" >> ~/.bashrc
-echo "alias flist='neutron floatingip-list'" >> ~/.bashrc
-echo "alias fcreate='neutron floatingip-create'" >> ~/.bashrc
-echo "alias fass='neutron floatingip-associate'" >> ~/.bashrc
-echo "alias fdel='neutron floatingip-delete'" >> ~/.bashrc
-
-echo "Relogin for aliases to take effect or simply source ~/.bashrc"
+echo "Relogin for aliases to take effect or simply source ~/.bash_aliases"
