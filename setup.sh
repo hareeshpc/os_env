@@ -41,8 +41,10 @@ echo "Path set to:${PATH}"
 
 
 # Adding aliases
-echo "Adding OS aliases...."
 
+echo "Adding OS aliases...."
+cd /var/hareesh
+echo "Path is:$(pwd)"
 curl -O https://raw.githubusercontent.com/hareeshpc/os_env/master/.bash_aliases
 
 if [ -f ~/.bash_aliases ]; then
