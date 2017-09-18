@@ -42,6 +42,9 @@ echo "Path set to:${PATH}"
 
 # Adding aliases
 echo "Adding OS aliases...."
+
+curl -O https://raw.githubusercontent.com/hareeshpc/os_env/master/.bash_aliases
+
 if [ -f ~/.bash_aliases ]; then
   echo " Found exisiting .bash_aliases. Appending...."
   cat .bash_aliases >> ~/.bash_aliases
